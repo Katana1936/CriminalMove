@@ -10,6 +10,7 @@ activityCompose = "1.9.1"
 composeBom = "2024.04.01"
 fragmentKtx = "1.8.1"
 appcompat = "1.7.0"
+material = "1.12.0"
 viewModelKtx = "2.5.1"  # Добавьте версию для ViewModel
 
 [libraries]
@@ -30,6 +31,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }  # Добавьте эту строку
+material = { module = "com.google.android.material:material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
