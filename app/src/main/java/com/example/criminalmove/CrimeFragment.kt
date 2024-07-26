@@ -1,6 +1,5 @@
 package com.example.criminalmove
 
-import Crime
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,7 +19,7 @@ class CrimeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        crime = Crime()
+        crime = Crime() // инициализация crime
     }
 
     override fun onCreateView(
@@ -29,9 +28,9 @@ class CrimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_crime, container, false)
-        titleField = view.findViewById(R.id.crime_title)
-        dateButton = view.findViewById(R.id.crime_date)
-        solvedCheckBox = view.findViewById(R.id.crime_solved)
+        titleField = view.findViewById(R.id.crime_title) as EditText
+        dateButton = view.findViewById(R.id.crime_date) as Button
+        solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
 
         dateButton.apply {
             text = crime.date.toString()

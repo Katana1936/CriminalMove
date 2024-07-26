@@ -15,7 +15,8 @@
         android:id="@+id/crime_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/crime_title_hint"/>
+        android:hint="@string/crime_title_hint"
+        android:minHeight="48dp" />
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
@@ -33,5 +34,6 @@
         android:id="@+id/crime_solved"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_solved_label"/>
+        android:minHeight="48dp"
+        android:text="@string/crime_solved_label" />
 </LinearLayout>
