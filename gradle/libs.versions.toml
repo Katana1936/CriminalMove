@@ -11,7 +11,7 @@ composeBom = "2024.04.01"
 fragmentKtx = "1.8.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-viewModelKtx = "2.5.1"  # Добавьте версию для ViewModel
+viewModelKtx = "2.5.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
