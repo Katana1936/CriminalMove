@@ -26,6 +26,7 @@ uiTestManifest = "1.4.0"
 uiTooling = "1.4.0"
 uiToolingPreview = "1.4.0"
 viewModelKtx = "2.5.1"
+kspVersion = "1.9.0-1.0.12" # Добавьте эту строку
 
 [libraries]
 androidx-activity-compose-v172 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
@@ -51,7 +52,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }  # Добавьте эту строку
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
@@ -65,3 +66,4 @@ ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
