@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.criminalmove.R.id.crime_date
 
 class CrimeListFragment : Fragment() {
     private lateinit var crimeRecyclerView: RecyclerView
@@ -48,7 +49,7 @@ class CrimeListFragment : Fragment() {
 
     private inner class CrimeHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = itemView.findViewById(R.id.crime_title)
-        val dateTextView: TextView = itemView.findViewById(R.id.crime_date)
+        val dateTextView: TextView = itemView.findViewById(crime_date)
         val solvedImageView: ImageView = itemView.findViewById(R.id.imageView)
     }
 

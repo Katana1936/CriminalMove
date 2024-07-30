@@ -1,5 +1,6 @@
 package com.example.criminalmove
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime
@@ -19,7 +22,7 @@ class CrimeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        crime = Crime() // инициализация crime
+        crime = Crime() // Initialize crime
     }
 
     override fun onCreateView(
@@ -33,36 +36,45 @@ class CrimeFragment : Fragment() {
         solvedCheckBox = view.findViewById(R.id.crime_solved)
 
         dateButton.apply {
-            text = crime.date.toString()
+            text = SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault()).format(crime.date)
+            setOnClickListener {
+                showDatePickerDialog()
+            }
         }
         return view
+    }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        calendar.time = crime.date
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val newDate = Calendar.getInstance()
+                newDate.set(selectedYear, selectedMonth, selectedDay)
+                crime.date = newDate.time
+                dateButton.text = SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault()).format(crime.date)
+            },
+            year, month, day
+        )
+        datePickerDialog.show()
     }
 
     override fun onStart() {
         super.onStart()
 
         val titleWatcher = object : TextWatcher {
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-                //////////
-            }
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 crime.title = sequence.toString()
             }
 
-            override fun afterTextChanged(sequence: Editable?) {
-                ////
-            }
+            override fun afterTextChanged(sequence: Editable?) {}
         }
         titleField.addTextChangedListener(titleWatcher)
 
