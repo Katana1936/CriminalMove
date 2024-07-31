@@ -1,6 +1,7 @@
 package com.example.criminalmove
 
 import androidx.lifecycle.ViewModel
+import com.example.criminalmove.database.Crime
 
 class CrimeListViewModel : ViewModel() {
     val crimes = mutableListOf<Crime>()

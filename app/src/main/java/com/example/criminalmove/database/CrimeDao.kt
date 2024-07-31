@@ -1,6 +1,7 @@
+package com.example.criminalmove.database
+
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.criminalmove.Crime
 import java.util.UUID
 
 @Dao

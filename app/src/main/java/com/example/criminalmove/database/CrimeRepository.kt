@@ -1,5 +1,6 @@
+package com.example.criminalmove.database
+
 import android.content.Context
-import android.provider.CalendarContract.Instances
 
 
 class CrimeRepository private constructor(context: Context) {
@@ -15,7 +16,7 @@ class CrimeRepository private constructor(context: Context) {
 
         fun get(): CrimeRepository {
             return INSTANCE ?:
-            throw IllegalStateException("CrimeRepository must be initialized")
+            throw IllegalStateException("com.example.criminalmove.database.CrimeRepository must be initialized")
 
         }
     }

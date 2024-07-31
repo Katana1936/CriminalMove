@@ -1,4 +1,4 @@
-package com.example.criminalmove
+package com.example.criminalmove.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
