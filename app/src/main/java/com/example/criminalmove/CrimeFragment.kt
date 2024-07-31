@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.criminalmove.database.Crime
 import java.text.SimpleDateFormat
 import java.util.*
 
