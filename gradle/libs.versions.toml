@@ -1,42 +1,20 @@
 [versions]
-activityComposeVersion = "1.7.2"
 agp = "8.5.0"
-androidxJunit = "1.1.5"
-composeBomVersion = "2023.04.01"
-constraintlayout = "2.1.4"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleExtensions = "2.2.0"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.04.01"
 fragmentKtx = "1.8.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-material3 = "1.1.0"
-materialVersion = "1.9.0"
-roomRuntime = "2.5.2"
-ui = "1.4.0"
-uiGraphics = "1.4.0"
-uiTestJunit4 = "1.4.0"
-uiTestManifest = "1.4.0"
-uiTooling = "1.4.0"
-uiToolingPreview = "1.4.0"
 viewModelKtx = "2.5.1"
-kspVersion = "1.9.0-1.0.12" # Добавьте эту строку
 
 [libraries]
-androidx-activity-compose-v172 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
-androidx-compose-bom-v20230401 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
-androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-junit-v115 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
-androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensions" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -52,18 +30,9 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }  # Добавьте эту строку
 material = { module = "com.google.android.material:material", version.ref = "material" }
-material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "uiGraphics" }
-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-jetbrains-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }

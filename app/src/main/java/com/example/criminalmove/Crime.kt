@@ -1,12 +1,8 @@
-package com.example.criminalmove.database
+package com.example.criminalmove
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import java.util.*
 
-
-@Entity
-data class Crime(@PrimaryKey
+data class Crime(
     val id: UUID = UUID.randomUUID(),
     var title: String = "",
     var isSolved: Boolean = false,
