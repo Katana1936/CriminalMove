@@ -10,5 +10,4 @@ interface CrimeDao {
     fun getCrimes(): List<Crime>
     @Query("SELECT * FROM crime WHERE id=(:id)")
     fun getCrime(id: UUID): Crime
-
 }
