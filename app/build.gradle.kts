@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -76,4 +77,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.room.compiler)
+    implementation (libs.ui.tooling)
+    implementation(libs.androidx.ui.test.manifest)
+}
+
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
 }

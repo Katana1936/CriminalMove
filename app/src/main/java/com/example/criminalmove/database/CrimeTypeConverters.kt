@@ -1,29 +1,30 @@
 package com.example.criminalmove.database
 
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
 import java.util.Date
 import java.util.UUID
 
 class CrimeTypeConverters {
 
-    @TypeConverters
+    @TypeConverter
     fun fromDate(date: Date?): Long? {
         return date?.time
     }
-    @TypeConverters
+
+    @TypeConverter
     fun toDate(millisSinceEpoch: Long?): Date? {
         return millisSinceEpoch?.let {
             Date(it)
         }
     }
 
-    @TypeConverters
+    @TypeConverter
     fun fromUUID(uuid: UUID?): String? {
         return uuid?.toString()
     }
-    @TypeConverters
+
+    @TypeConverter
     fun toUUID(uuid: String?): UUID? {
         return UUID.fromString(uuid)
     }
-
 }
