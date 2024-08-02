@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -78,9 +80,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.room.compiler)
     implementation (libs.ui.tooling)
-    implementation(libs.androidx.ui.test.manifest)
-}
+    implementation (libs.compiler)
 
-configurations.all {
-    exclude(group = "com.intellij", module = "annotations")
+
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx.v230)
+    ksp (libs.androidx.room.compiler.v230)
 }
