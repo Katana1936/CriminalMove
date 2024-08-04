@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminalmove.database.Crime
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 private const val TAG = "CrimeListFragment"
 
@@ -48,8 +51,12 @@ class CrimeListFragment : Fragment() {
     }
 
     private fun updateUI(crimes: List<Crime>) {
-        adapter = CrimeAdapter(crimes)
-        crimeRecyclerView.adapter = adapter
+        if (adapter == null) {
+            adapter = CrimeAdapter(crimes)
+            crimeRecyclerView.adapter = adapter
+        } else {
+            adapter?.updateCrimes(crimes)
+        }
     }
 
     private inner class CrimeHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -59,6 +66,7 @@ class CrimeListFragment : Fragment() {
     }
 
     private inner class CrimeAdapter(var crimes: List<Crime>) : RecyclerView.Adapter<CrimeHolder>() {
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
             val view = layoutInflater.inflate(R.layout.list_item_crime, parent, false)
             return CrimeHolder(view)
@@ -68,15 +76,21 @@ class CrimeListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
             val crime = crimes[position]
+            Log.i(TAG, "Binding crime: ${crime.title}")
             holder.apply {
                 titleTextView.text = crime.title
-                dateTextView.text = crime.date.toString()
+                dateTextView.text = SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault()).format(Date(crime.date))
                 solvedImageView.visibility = if (crime.isSolved) {
                     View.VISIBLE
                 } else {
                     View.GONE
                 }
             }
+        }
+
+        fun updateCrimes(crimes: List<Crime>) {
+            this.crimes = crimes
+            notifyDataSetChanged()
         }
     }
 

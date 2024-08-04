@@ -73,7 +73,9 @@ class CrimeDataSource private constructor(context: Context) {
             val crimeCount = withContext(Dispatchers.IO) {
                 realm.query<Crime>().count().find()
             }
+            Log.i(TAG, "Crime count in database: $crimeCount")
             if (crimeCount == 0L) {
+                Log.i(TAG, "Database is empty, populating with random crimes")
                 populateDatabaseWithRandomCrimes()
             }
         }
@@ -81,7 +83,7 @@ class CrimeDataSource private constructor(context: Context) {
 
     companion object {
         private var INSTANCE: CrimeDataSource? = null
-        private const val TAG = "CrimeRepository"
+        private const val TAG = "CrimeDataSource"
 
         fun initialize(context: Context) {
             if (INSTANCE == null) {
@@ -91,7 +93,7 @@ class CrimeDataSource private constructor(context: Context) {
         }
 
         fun get(): CrimeDataSource {
-            return INSTANCE ?: throw IllegalStateException("CrimeRepository must be initialized")
+            return INSTANCE ?: throw IllegalStateException("CrimeDataSource must be initialized")
         }
     }
 }

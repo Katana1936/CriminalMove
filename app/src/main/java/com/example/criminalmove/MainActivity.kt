@@ -1,15 +1,15 @@
 package com.example.criminalmove
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.criminalmove.database.CrimeDataSource
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        enableEdgeToEdge()
+        CrimeDataSource.initialize(this)
 
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
