@@ -1,15 +1,47 @@
 package com.example.criminalmove
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 class CrimeListViewModel : ViewModel() {
-    val crimes = mutableListOf<Crime>()
+    private val _crimesLiveData = MutableLiveData<List<Crime>>()
+    val crimesLiveData: LiveData<List<Crime>> get() = _crimesLiveData
+
+    private val db = FirebaseFirestore.getInstance()
+    private var listenerRegistration: ListenerRegistration? = null
+
     init {
-        for (i in 0 until 100) {
-            val crime = Crime()
-            crime.title = "Crime #$i"
-            crime.isSolved = i % 2 == 0
-            crimes += crime
-        }
+        fetchCrimesFromFirestore()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        listenerRegistration?.remove()
+    }
+
+    private fun fetchCrimesFromFirestore() {
+        listenerRegistration = db.collection("Crimes")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w("CrimeListViewModel", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val crimes = mutableListOf<Crime>()
+                    for (document in snapshot.documents) {
+                        val crime = document.toObject(Crime::class.java)
+                        crime?.id = document.id
+                        if (crime != null) {
+                            crimes.add(crime)
+                        }
+                    }
+                    _crimesLiveData.value = crimes
+                }
+            }
     }
 }

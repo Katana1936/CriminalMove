@@ -1,9 +1,9 @@
 package com.example.criminalmove
 
-import java.util.*
+import java.util.Date
 
 data class Crime(
-    val id: UUID = UUID.randomUUID(),
+    var id: String = "",
     var title: String = "",
     var isSolved: Boolean = false,
     var date: Date = Date()
