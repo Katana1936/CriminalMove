@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937138137210",
+    "project_id": "criminalmove-97c0c",
+    "storage_bucket": "criminalmove-97c0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937138137210:android:62e8899d43e900379a33c3",
+        "android_client_info": {
+          "package_name": "com.example.criminalmove"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRJlAZOjfjfQFoQdnPYq_MdjeIWjokqas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("io.realm.kotlin") version "1.9.0"
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -50,16 +50,11 @@ android {
     }
 }
 
-configurations.all {
-    exclude(group = "com.intellij", module = "annotations")
-}
-
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -68,10 +63,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.library.base)
-
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
