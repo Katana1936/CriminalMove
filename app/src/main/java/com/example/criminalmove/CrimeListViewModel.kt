@@ -44,4 +44,5 @@ class CrimeListViewModel : ViewModel() {
                 }
             }
     }
+
 }

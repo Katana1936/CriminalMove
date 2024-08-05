@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CrimeListFragment : Fragment() {
 
@@ -39,8 +40,7 @@ class CrimeListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_crime_list, container, false)
@@ -49,10 +49,15 @@ class CrimeListFragment : Fragment() {
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
         crimeRecyclerView.adapter = adapter
 
+        view.findViewById<FloatingActionButton>(R.id.add_crime_button).setOnClickListener {
+            AddCrimeDialogFragment().show(parentFragmentManager, "AddCrimeDialog")
+        }
+
         observeViewModel()
 
         return view
     }
+
 
     private fun observeViewModel() {
         crimeListViewModel.crimesLiveData.observe(viewLifecycleOwner, Observer { crimes ->
@@ -71,6 +76,7 @@ class CrimeListFragment : Fragment() {
             crimeRecyclerView.adapter = adapter
         }
     }
+
 
     private inner class CrimeHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val titleTextView: TextView = itemView.findViewById(R.id.crime_title)
