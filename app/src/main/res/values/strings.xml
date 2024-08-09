@@ -9,4 +9,6 @@
     <string name="solved">Solved</string>
     <string name="save">Save</string>
     <string name="add_crime">Add Crime</string>
+    <string name="crime_suspect_text">Choose Suspect</string>
+    <string name="crime_report_text">Send Crime Report</string>
 </resources>

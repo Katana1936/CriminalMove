@@ -2,14 +2,12 @@ package com.example.criminalmove
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,9 +56,8 @@ class CrimeListFragment : Fragment() {
         return view
     }
 
-
     private fun observeViewModel() {
-        crimeListViewModel.crimesLiveData.observe(viewLifecycleOwner, Observer { crimes ->
+        crimeListViewModel.getCrimesLiveData().observe(viewLifecycleOwner, { crimes ->
             crimes?.let {
                 updateUI(it)
             }
@@ -77,7 +74,6 @@ class CrimeListFragment : Fragment() {
         }
     }
 
-
     private inner class CrimeHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val titleTextView: TextView = itemView.findViewById(R.id.crime_title)
         private val dateTextView: TextView = itemView.findViewById(R.id.crime_date)
@@ -91,7 +87,7 @@ class CrimeListFragment : Fragment() {
 
         fun bind(crime: Crime) {
             this.crime = crime
-            titleTextView.text = crime.title // Используем v1 для отображения
+            titleTextView.text = crime.title
             dateTextView.text = crime.date.toString()
             solvedImageView.visibility = if (crime.isSolved) {
                 View.VISIBLE

@@ -1,48 +1,35 @@
 package com.example.criminalmove
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 
 class CrimeListViewModel : ViewModel() {
-    private val _crimesLiveData = MutableLiveData<List<Crime>>()
-    val crimesLiveData: LiveData<List<Crime>> get() = _crimesLiveData
-
-    private val db = FirebaseFirestore.getInstance()
-    private var listenerRegistration: ListenerRegistration? = null
+    private val firestore = FirebaseFirestore.getInstance()
+    private val crimesLiveData = MutableLiveData<List<Crime>>()
 
     init {
-        fetchCrimesFromFirestore()
+        fetchCrimes()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        listenerRegistration?.remove()
+    fun getCrimesLiveData(): LiveData<List<Crime>> {
+        return crimesLiveData
     }
 
-    private fun fetchCrimesFromFirestore() {
-        listenerRegistration = db.collection("Crimes")
+    private fun fetchCrimes() {
+        firestore.collection("Crimes")
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.w("CrimeListViewModel", "Listen failed.", e)
+                    // Handle error
                     return@addSnapshotListener
                 }
 
-                if (snapshot != null) {
-                    val crimes = mutableListOf<Crime>()
-                    for (document in snapshot.documents) {
-                        val crime = document.toObject(Crime::class.java)
-                        crime?.id = document.id
-                        if (crime != null) {
-                            crimes.add(crime)
-                        }
-                    }
-                    _crimesLiveData.value = crimes
-                }
+                val crimeList = snapshot?.documents?.map { document ->
+                    document.toObject(Crime::class.java)?.apply { id = document.id }
+                }?.filterNotNull() ?: emptyList()
+
+                crimesLiveData.value = crimeList
             }
     }
-
 }

@@ -51,9 +51,14 @@ class AddCrimeDialogFragment : DialogFragment() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-
     private fun saveCrimeToFirestore(crime: Crime) {
         db.collection("Crimes").add(crime)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                println("Error adding document: $e")
+            }
     }
 
     private fun showDatePickerDialog() {

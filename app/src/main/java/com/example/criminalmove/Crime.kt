@@ -1,10 +1,11 @@
 package com.example.criminalmove
 
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
 data class Crime(
-    var id: String = "",
+    @DocumentId var id: String = "",
     var title: String = "",
     var isSolved: Boolean = false,
     var date: Date = Date()
@@ -13,10 +14,8 @@ data class Crime(
 fun addCrimeToFirestore(crime: Crime) {
     val db = FirebaseFirestore.getInstance()
 
-    // Генерируем уникальный идентификатор для каждого title
     val uniqueTitle = "${crime.title}_${System.currentTimeMillis()}"
 
-    // Создаем карту данных для хранения в Firestore
     val crimeData = hashMapOf(
         "id" to crime.id,
         "title" to uniqueTitle,
@@ -24,7 +23,6 @@ fun addCrimeToFirestore(crime: Crime) {
         "date" to crime.date
     )
 
-    // Добавляем документ в коллекцию "Crimes"
     db.collection("Crimes")
         .add(crimeData)
         .addOnSuccessListener { documentReference ->

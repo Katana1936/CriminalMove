@@ -3,15 +3,21 @@ package com.example.criminalmove
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.criminalmove.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), CrimeListFragment.Callbacks {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FirebaseApp.initializeApp(this)
+        auth = FirebaseAuth.getInstance()
 
         // Проверяем, загружен ли уже фрагмент
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
