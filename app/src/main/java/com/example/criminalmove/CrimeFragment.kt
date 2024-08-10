@@ -12,12 +12,14 @@ import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 private const val ARG_CRIME_ID = "crime_id"
+private const val DATE_FFORMAT = "EEEE, MMM dd"
 
 class CrimeFragment : Fragment() {
 
@@ -108,7 +110,7 @@ class CrimeFragment : Fragment() {
                 }
             }
             .addOnFailureListener { e ->
-                // Handle error
+
             }
     }
 
@@ -116,6 +118,22 @@ class CrimeFragment : Fragment() {
         titleField.setText(crime.title)
         dateButton.text = SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault()).format(crime.date)
         solvedCheckBox.isChecked = crime.isSolved
+    }
+
+    private fun getCrimeReport(): String {
+        val solvedString = if (crime.isSolved) {
+            getString(R.string.crime_report_solved)
+        } else {
+            getString(R.string.crime_report_unsolved)
+        }
+        val dateString = DateFormat.format(DATE_FORMAT, crime.date).toString()
+        var suspect = if (crime.suspect.isBlank()) {
+            getString(R.string.crime_report_no_suspect)
+        } else {
+            getString(R.string.crime_report_suspect, crime.suspect)
+        }
+        return getString(R.string.crime_report,
+            crime.title, dateString, solvedString, suspect)
     }
 
     companion object {
