@@ -8,7 +8,9 @@ data class Crime(
     @DocumentId var id: String = "",
     var title: String = "",
     var isSolved: Boolean = false,
-    var date: Date = Date()
+    var date: Date = Date(),
+    var suspect: String? = null,
+    var contactId: String = ""
 )
 
 fun addCrimeToFirestore(crime: Crime) {

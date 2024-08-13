@@ -20,38 +20,77 @@
         android:hint="@string/crime_title_hint"
         android:minHeight="48dp" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_details_label"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
-    <Button
-        android:id="@+id/crime_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Date"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/crime_solved"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="@string/crime_solved_label" />
+            <ImageView
+                android:id="@+id/crime_photo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerInside"
+                android:cropToPadding="true"
+                android:background="@android:color/darker_gray"/>
 
-    <Button
-        android:id="@+id/crime_suspect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/crime_suspect_text"/>
+            <ImageButton
+                android:id="@+id/crime_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_camera"/>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/crime_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/crime_report_text"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crime_details_label"/>
+
+            <Button
+                android:id="@+id/crime_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_date"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <CheckBox
+                android:id="@+id/crime_solved"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/crime_solved_label" />
+
+            <Button
+                android:id="@+id/crime_suspect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crime_suspect_text"/>
+
+            <Button
+                android:id="@+id/crime_call_suspect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/call_suspect" />
+
+            <Button
+                android:id="@+id/crime_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crime_report_text"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
