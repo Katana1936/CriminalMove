@@ -11,7 +11,10 @@ data class Crime(
     var date: Date = Date(),
     var suspect: String? = null,
     var contactId: String = ""
-)
+) {
+    val photoFileName: String
+        get() = "IMG_$id.jpg"
+}
 
 fun addCrimeToFirestore(crime: Crime) {
     val db = FirebaseFirestore.getInstance()
