@@ -2,3 +2,7 @@
 <paths>
     <files-path name="crime_photos" path="."/>
 </paths>
+
+<!--Этот файл XML по сути гласит: «Назначить crime_photos корневым путем
+моего приватного хранилища». Вы не будете использовать имя crime_photos —
+FileProvider делает это в своей внутренней реализации.Теперь свяжите files.xml с FileProvider, добавив тег meta-data в файл AndroidManifest.xml.-->
