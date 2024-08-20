@@ -12,18 +12,9 @@ class CrimeListViewModel : ViewModel() {
     private val crimesLiveData = MutableLiveData<List<Crime>>()
     private lateinit var filesDir: File
 
-    // Инициализация директории для хранения файлов
     fun initialize(context: Context) {
         filesDir = context.applicationContext.filesDir
-    }
-
-    // Метод для получения файла фотографии по имени
-    fun getPhotoFile(crime: Crime): File {
-        return File(filesDir, crime.photoFileName)
-    }
-
-    fun getCrimesLiveData(): LiveData<List<Crime>> {
-        return crimesLiveData
+        fetchCrimes() // Добавьте этот вызов сюда
     }
 
     private fun fetchCrimes() {
@@ -41,4 +32,13 @@ class CrimeListViewModel : ViewModel() {
                 crimesLiveData.value = crimeList
             }
     }
+
+    fun getCrimesLiveData(): LiveData<List<Crime>> {
+        return crimesLiveData
+    }
+
+    fun getPhotoFile(crime: Crime): File {
+        return File(filesDir, crime.photoFileName)
+    }
 }
+

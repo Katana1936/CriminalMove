@@ -35,7 +35,7 @@ private const val ARG_CRIME_ID = "crime_id"
 private const val DATE_FORMAT = "EEEE, MMM dd, yyyy"
 private const val REQUEST_CONTACT = 1
 private const val REQUEST_READ_CONTACTS = 2
-private const val REQUEST_PHOTO = 2
+private const val REQUEST_PHOTO = 3
 
 class CrimeFragment : Fragment() {
 
@@ -71,31 +71,6 @@ class CrimeFragment : Fragment() {
             "com.example.criminalmove.fileprovider",
             photoFile
         )
-
-
-        photoButton.apply {
-            val packageManager: PackageManager = requireActivity().packageManager
-            val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val resolvedActivity: ResolveInfo? =
-                packageManager.resolveActivity(captureImage,
-                    PackageManager.MATCH_DEFAULT_ONLY)
-            if (resolvedActivity == null) {
-                isEnabled = false
-            }
-            setOnClickListener {
-                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                val cameraActivities: List<ResolveInfo> =
-                    packageManager.queryIntentActivities(captureImage,
-                        PackageManager.MATCH_DEFAULT_ONLY)
-                for (cameraActivity in cameraActivities) {
-                    requireActivity().grantUriPermission(
-                        cameraActivity.activityInfo.packageName,
-                        photoUri,
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                }
-                startActivityForResult(captureImage, REQUEST_PHOTO)
-            }
-        }
     }
 
     override fun onCreateView(
@@ -141,42 +116,31 @@ class CrimeFragment : Fragment() {
         }
 
         // Обработка клика на кнопку камеры
-        photoButton.setOnClickListener {
-            val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-
+        photoButton.apply {
             val packageManager: PackageManager = requireActivity().packageManager
-            val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+            val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            val resolvedActivity: ResolveInfo? =
+                packageManager.resolveActivity(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+            if (resolvedActivity == null) {
+                isEnabled = false
+            }
 
-            if (resolvedActivity != null) {
+            setOnClickListener {
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                val cameraActivities: List<ResolveInfo> =
+                    packageManager.queryIntentActivities(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+                for (cameraActivity in cameraActivities) {
+                    requireActivity().grantUriPermission(
+                        cameraActivity.activityInfo.packageName,
+                        photoUri,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
+                }
                 startActivityForResult(captureImage, REQUEST_PHOTO)
             }
         }
 
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val pickContactIntent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
-        val packageManager: PackageManager = requireActivity().packageManager
-        val resolvedActivity: ResolveInfo? =
-            packageManager.resolveActivity(pickContactIntent, PackageManager.MATCH_DEFAULT_ONLY)
-        if (resolvedActivity == null) {
-            suspectButton.isEnabled = false
-        }
-
-        val titleWatcher = object : TextWatcher {
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
-                crime.title = sequence.toString()
-            }
-
-            override fun afterTextChanged(sequence: Editable?) {}
-        }
-        titleField.addTextChangedListener(titleWatcher)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -200,8 +164,18 @@ class CrimeFragment : Fragment() {
                 }
             }
             requestCode == REQUEST_PHOTO -> {
+                if (this::photoUri.isInitialized) {
+                    requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                }
                 updatePhotoView()
             }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (this::photoUri.isInitialized) {
+            requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         }
     }
 
@@ -273,7 +247,8 @@ class CrimeFragment : Fragment() {
                 }
             }
             .addOnFailureListener { e ->
-                // Handle error
+                // Обработка ошибок
+                println("Error fetching crime: $e")
             }
     }
 
